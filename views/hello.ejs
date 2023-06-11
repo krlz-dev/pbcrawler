@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello</title>
+</head>
+<body>
+
+    <ul>
+        <% for (let i = 0; i < results.length; i++) { %>
+            <li>
+                <a href="<%= results[i].magnetLink %>"><%= results[i].description %></a>
+            </li>
+        <% } %>
+    </ul>
+
+<script>
+    function fetchResults() {
+        fetch('/scrape')
+            .then(response => response.json())
+            .then(data => {
+                const results = data;
+                const ul = document.createElement('ul');
+
+                for (let i = 0; i < results.length; i++) {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = results[i].magnetLink;
+                    a.textContent = results[i].description;
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                }
+
+                document.body.appendChild(ul);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    fetchResults();
+</script>
+</body>
+</html>
