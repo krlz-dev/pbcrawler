@@ -15,7 +15,7 @@
 
 <script>
     function fetchResults() {
-        fetch('/scrape')
+        fetch('/scrape?q=game+of+thrones')
             .then(response => response.json())
             .then(data => {
                 const results = data;
